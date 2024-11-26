@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: abroad-consultancy
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.12
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: abroad_consultancy_db
+          property: connectionString
+
+databases:
+  - name: abroad_consultancy_db
+    plan: free
+    ipAllowList: []
